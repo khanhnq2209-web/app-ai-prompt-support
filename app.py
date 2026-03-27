@@ -189,6 +189,54 @@ Cách trình bày & Định Dạng (Lệnh bắt buộc Formatter):
                     
                 st.code(final_prompt, language="markdown")
 
+            st.markdown("---")
+            if st.button("⚖️ Chấm Điểm & Phân Tích Prompt", use_container_width=True):
+                score = 0
+                feedback = []
+                
+                # Tự động chấm điểm
+                if len(p_persona) > 20: score += 2
+                elif len(p_persona) > 0: 
+                    score += 1
+                    feedback.append("- 👤 **Định Vị:** Khá ngắn. Hãy mô tả chi tiết chức danh và kinh nghiệm chuyên môn.")
+                else: feedback.append("- 👤 **Định Vị:** Bị bỏ trống. AI sẽ không rõ vai trò cần đóng.")
+                
+                if len(p_context) > 20: score += 2
+                elif len(p_context) > 0: 
+                    score += 1
+                    feedback.append("- 🏢 **Bối Cảnh:** Cần thêm Data gốc hoặc hoàn cảnh cụ thể để AI bám sát dữ liệu thực tế.")
+                else: feedback.append("- 🏢 **Bối Cảnh:** Bị bỏ trống. Trả lời sẽ rất chung chung thiếu chiều sâu.")
+                
+                if len(p_task) > 20: score += 2.5
+                elif len(p_task) > 0: 
+                    score += 1
+                    feedback.append("- 🎯 **Nhiệm Vụ:** Quá ngắn gọn. Cần dùng động từ hành động mạnh và mô tả rõ mục tiêu cụ thể.")
+                else: feedback.append("- 🎯 **Nhiệm Vụ:** Bị bỏ trống! Đây là trái tim của khối lệnh, AI sẽ không biết phải làm gì.")
+                
+                if len(p_rules) > 15: score += 1.5
+                elif len(p_rules) > 0: 
+                    score += 0.5
+                    feedback.append("- ⚖️ **Quy Tắc:** Hãy bổ sung thêm các 'Vùng cấm' (KHÔNG ĐƯỢC làm gì) để khoá chặt giới hạn sáng tạo.")
+                else: feedback.append("- ⚖️ **Quy Tắc:** Bị bỏ trống. AI rất dễ bị ảo giác (Hallucination) và nói lan man.")
+                
+                if len(p_format) > 15: score += 2
+                elif len(p_format) > 0: 
+                    score += 1
+                    feedback.append("- 📋 **Định Dạng:** Cần quy định rõ cấu trúc đầu ra (Lập bảng nhiều cột, Gạch đầu dòng, Chuẩn ISO...).")
+                else: feedback.append("- 📋 **Định Dạng:** Bị bỏ trống. Bạn sẽ mất công đọc một mớ văn bản lộn xộn không có cấu trúc.")
+                
+                # Trình bày kết quả
+                if score >= 8:
+                    st.success(f"🏆 **Điểm Chuẩn Chuyên Gia: {score}/10** - Khối lệnh xuất sắc! Cấu trúc cực kỳ chặt chẽ, sẵn sàng đưa vào thực chiến.")
+                elif score >= 5:
+                    st.warning(f"⚖️ **Điểm Đạt Chuẩn: {score}/10** - Khối lệnh dùng được, nhưng cần khắc phục các điểm yếu dưới đây để AI không bị trượt đề:")
+                else:
+                    st.error(f"🚨 **Điểm Rủi Ro Cao: {score}/10** - Cảnh báo! Cấu trúc quá lỏng lẻo. AI chắc chắn sẽ đánh võng và bịa đặt thông tin. Cần cân chỉnh ngay:")
+                
+                if feedback:
+                    for f in feedback:
+                        st.markdown(f)
+
 
 # ══════════════════════════════════════════════════════════════
 # TAB 2: LIBRARY 
