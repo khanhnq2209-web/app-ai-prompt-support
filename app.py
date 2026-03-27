@@ -61,13 +61,13 @@ TEMPLATES_DATA = {
         "persona": "Chuyên gia Phân tích Rủi ro tín dụng & Tài chính Doanh nghiệp (CFA Level 3). Đặc thù làm việc cực kỳ cẩn trọng, dựa hoàn toàn vào số liệu trung lập.",
         "context": "File dữ liệu báo cáo tài chính nội bộ. Thông tin mang tính nhạy cảm cao ở cấp độ Tập đoàn.",
         "task": "Dựa trên phần Database, phân tích chuyên sâu 3 điểm rủi ro: khả năng thanh khoản hoặc suy giảm biên lợi nhuận nghiêm trọng nhất.",
-        "rules": "- Tuyệt đối CHỈ lập luận dựa trên con số có từ dữ liệu gốc.\n- Tính toán giả định Worst-case (Stress test).\n- KHÔNG dùng từ ngữ cảm xúc, sáo rỗng (như 'Đột phá', 'Rất tồi tệ').\n- BẮT BUỘC KHÔNG được in lặp lại các tiêu đề của System Prompt này vào câu trả lời.",
+        "rules": "- Tuyệt đối CHỈ lập luận dựa trên con số có từ dữ liệu gốc.\n- Tính toán giả định Worst-case (Stress test).\n- Khi thiếu dữ liệu, phải ghi rõ \"Không đủ cơ sở tính toán\" thay vì tự ước đoán.\n- KHÔNG dùng từ ngữ cảm xúc, sáo rỗng (như 'Đột phá', 'Rất tồi tệ').",
         "format": "BẮT BUỘC TRÌNH BÀY THEO CẤU TRÚC ĐẾM MỤC:\n1. TỔNG QUAN XU HƯỚNG: Viết duy nhất 1 đoạn văn (Max 3 câu).\n2. BẢNG CHI TIẾT RỦI RO LÕI: Dùng Table [Tên Rủi ro | Tác động ước tính | Gốc rễ nguyên nhân | Dẫn chứng số liệu].\n3. KHUYẾN NGHỊ: Dùng gạch đầu dòng ngắn.\n* Tiêu chuẩn Dữ liệu: Format dòng tiền/doanh thu chuẩn ISO (VD: 1,500,000.00 VND), tỷ lệ phần trăm lấy đúng 2 số thập phân (15.55%)."
     },
     "Data Analyst Engine": {
         "persona": "Môi trường Compile Code giả lập. Senior Data Engineer chuyên gia tối ưu Python (Pandas/Polars) và SQL Tuning.",
         "context": "File Code / Schema DB đính kèm trong Project Knowledge. Stack hiện tại: Python 3.11+, PostgreSQL.",
-        "task": "Viết script ETL hoặc Optimize câu truy vấn (Query) từ thông tin đầu vào sao cho tốc độ siêu tốc.",
+        "task": "Viết script ETL hoặc Optimize câu truy vấn (Query) từ thông tin đầu vào. Bắt buộc chỉ giải quyết đúng 1 vấn đề được nêu ra, không thêm tính năng ngoài.",
         "rules": "- Tuyệt đối KHÔNG dạy tôi cú pháp (Ví dụ: Here is how you install pandas). Không viết dạo.\n- Xử lý mượt Exceptions I/O.\n- KHÔNG dùng vòng lặp iterrows, 100% Vectorized Array.",
         "format": "Phân chia rõ rệt:\n1. TƯ DUY TỐI ƯU (Time/Space Complexity) - Bảng Table so sánh cách cũ vs cách mới.\n2. CODE BLOCK CHUẨN - Phải có Type Hints và Google Docstrings chuẩn, nhưng phải thật ngắn gọn."
     },
@@ -76,14 +76,14 @@ TEMPLATES_DATA = {
         "context": "Cuộc họp chiến lược kinh doanh. Dữ liệu là đoạn Text âm thanh chuyển sang chữ bị lủng củng và thiếu chấm phẩy.",
         "task": "Rò soát toàn bộ văn bản và chắt lọc thành các kết luận cuối cùng của cuộc họp.",
         "rules": "- Lọc rác: Bỏ qua 100% các đoạn hồi thoại phiếm chào hỏi hoặc khen chê cảm tính.\n- Tách bạch rõ 2 khái niệm: 'Ý kiến đề xuất' và 'Kết luận chốt hạ'.\n- Không nhắc lại nội dung nhắc vả của câu lệnh gốc.",
-        "format": "TRÌNH BÀY SÚC TÍCH, DÙNG BẢNG:\n1. Tóm Tắt Trong 2 Câu\n2. BẢNG ACTION ITEMS GIAO VIỆC (Họ Tên | Nhiệm Vụ | KPI Yêu cầu | Deadline)"
+        "format": "TRÌNH BÀY SÚC TÍCH, DÙNG BẢNG:\n1. Tóm Tắt Trong 2 Câu\n2. BẢNG ACTION ITEMS GIAO VIỆC (Họ Tên | Phòng Ban | Nhiệm Vụ ≤ 20 từ | KPI Yêu cầu | Deadline YYYY-MM-DD)"
     },
     "BOD Strategy Assessor": {
         "persona": "Giám đốc Thẩm định Chiến lược (Chief Strategy Officer). Người đóng vai Ác (Red Team) chuyên tìm lỗi tư duy phản biện.",
         "context": "Dữ liệu đính kèm là Kế hoạch kinh doanh được vẽ vời viển vông, giả định đẹp đẽ.",
         "task": "Phản biện tàn nhẫn và bóc tách các lỗ hổng chết người về giả định dòng tiền, vĩ mô và tính khả thi dòng vốn.",
         "rules": "- Dứt khoát, đi thẳng vào tim đen. Đặt các câu hỏi hóc búa mang tính sống còn.\n- KHÔNG dùng bất cứ từ mang tính vuốt ve xoa dịu (VD: Nhìn chung thì bản kế hoạch khá tốt).\n- Mọi lập luận phản bác phải kèm con số chứng minh phi lý.",
-        "format": "ĐỊNH DẠNG TỐI GIẢN:\n1. TỬ HUYỆT BÁO CÁO (Red Flags): Dùng gạch đầu dòng.\n2. BẢNG CÂU HỎI TRUY VẤN: Lập 1 Table [Biến số đang ngộ nhận | Rủi ro sụp đổ | Câu hỏi giải pháp thay thế đòi hỏi Báo cáo lại]."
+        "format": "ĐỊNH DẠNG TỐI GIẢN:\n1. TỬ HUYỆT BÁO CÁO (Red Flags): Dùng gạch đầu dòng.\n2. BẢNG CÂU HỎI TRUY VẤN: Lập 1 Table [Biến số đang ngộ nhận | Rủi ro sụp đổ | Câu hỏi giải pháp thay thế đòi hỏi Báo cáo lại].\n* Mỗi Tử Huyệt ở trên phải được đánh trọng số Nguy cơ: 🔴 Sụp đổ / 🟡 Kiềm hãm tăng trưởng / 🟢 Có thể phòng thủ."
     }
 }
 
@@ -125,8 +125,11 @@ with tabs[0]:
             st.markdown("#### 2. Kết Quả Compiler (Khối Lệnh Dịch Ra)")
             platform = st.selectbox("🔥 Chọn Nền Tảng Chạy Đích (Target AI Engine):", ["🟢 ChatGPT (OpenAI)", "🦊 Claude 3.5 (Anthropic)", "✨ Gemini (Google)"])
             
-            if "ChatGPT" in platform:
-                final_prompt = f"""# ROLE (ĐỊNH VỊ CHUYÊN MÔN KÍN)
+            if not p_task.strip() or not p_persona.strip():
+                st.warning("⚠️ **Vui lòng điền ít nhất 'ĐỊNH VỊ (Persona)' và 'NHIỆM VỤ (Task)'** ở cột bên trái để Trình biên dịch có thể hoạt động chính xác.")
+            else:
+                if "ChatGPT" in platform:
+                    final_prompt = f"""# ROLE (ĐỊNH VỊ CHUYÊN MÔN KÍN)
 {p_persona}
 
 # CONTEXT (BỐI CẢNH DỮ LIỆU GỐC)
@@ -144,31 +147,31 @@ with tabs[0]:
 
 ---
 *Lệnh Điều Khiển Nội Bộ (Chain-of-thought Constraint for ChatGPT):* Hãy đọc thật chậm và phân rã các bước thực hiện (Step-by-step). Đảm bảo mọi quy tắc trong # RULES và định dạng # OUTPUT FORMAT (Numbers, Tables, Bullet points) được đối chiếu nghiêm ngặt 100% trước khi xuất kết quả cuối cùng ra màn hình."""
-                st.success("💡 **ChatGPT** ghi nhận cấu trúc Markdown rất tốt. Việc bổ sung Meta-Rule `TUYỆT ĐỐI KHÔNG ĐƯỢC in lại tiêu đề` sẽ xóa sạch hiện tượng AI in lại Rủi ro thanh khoản hay <key_risks> ra ngoài một cách vô nghĩa.")
-            
-            elif "Claude" in platform:
-                final_prompt = f"""[ROLE]
+                    st.success("💡 **ChatGPT** ghi nhận cấu trúc Markdown rất tốt. Việc bổ sung Meta-Rule `TUYỆT ĐỐI KHÔNG ĐƯỢC in lại tiêu đề` sẽ xóa sạch hiện tượng AI in lại Rủi ro thanh khoản hay <key_risks> ra ngoài một cách vô nghĩa.")
+                
+                elif "Claude" in platform:
+                    final_prompt = f"""## VAI TRÒ (ROLE)
 {p_persona}
 
-[CONTEXT]
+## BỐI CẢNH (CONTEXT)
 {p_context}
 
-[TASK]
+## NHIỆM VỤ (TASK)
 {p_task}
 
-[CONSTRAINTS]
+## QUY TẮC BẮT BUỘC (CONSTRAINTS)
 {p_rules}
-- CẤM GỌI TÊN THẺ: Tuyệt đối không được rò rỉ hoặc viết lặp lại các thẻ Meta [ROLE], [CONTEXT], hay các tiêu đề System Instructions này ra luồng văn bản trả lời cho User. Trả bài nguyên chất.
+- CẤM MÔ TẢ LẠI LỆNH: Tuyệt đối không được rò rỉ hoặc viết lặp lại các thẻ tiêu đề (## VAI TRÒ, ## BỐI CẢNH...) hay các System Instructions này ra luồng văn bản trả lời cho User. Trả bài nguyên chất.
 
-[OUTPUT_FORMAT]
+## ĐỊNH DẠNG ĐẦU RA (OUTPUT_FORMAT)
 {p_format}
 
 ---
-*Command Directive (For Claude):* Trước khi trả bài, phải mở một không gian thẻ giả lập là `<thinking>` trong luồng xử lý riêng, để đối chiếu gắt gao Data từ [CONTEXT] với yêu cầu chuẩn hóa Table/ISO của [OUTPUT_FORMAT]. Sau khi chắc chắn 100%, mới in kết quả ra."""
-                st.info("💡 **Claude AI** có tư duy phân nhóm bằng Text-Blocks `[MỤC]`. Claude thông minh đột biến khi buộc nó phải `Trầm tư (Thinking)` trước khi đổ chữ ra ngoài, kết hợp cấm nhắc tên thẻ gốc trong bài viết.")
-            
-            elif "Gemini" in platform:
-                final_prompt = f"""Đóng vai trò chuyên môn tĩnh: {p_persona}
+*Command Directive (For Claude):* Trước khi trả bài, phải mở một không gian thẻ giả lập là `<thinking>` trong luồng xử lý riêng, để đối chiếu gắt gao Data từ phần BỐI CẢNH với yêu cầu chuẩn hóa Table/ISO của phần ĐỊNH DẠNG. Sau khi chắc chắn 100%, mới in kết quả ra."""
+                    st.info("💡 **Claude AI** phân tách thông tin cực tốt với thẻ Markdown `##`. Việc tránh dùng thẻ vuông `[ROLE]` sẽ giúp Claude không bị bắt chước in lặp lại thẻ ra màn hình.")
+                
+                elif "Gemini" in platform:
+                    final_prompt = f"""Đóng vai trò chuyên môn tĩnh: {p_persona}
 
 Dữ liệu nền tảng (Bối cảnh khép kín):
 {p_context}
@@ -181,13 +184,10 @@ Luật lệ cắt bỏ rác tuyệt đối:
 - Quy định Vàng: AI cấm việc "Hát nhép" tức là Cấm in lại hay nói lại các tiêu đề hướng dẫn trong lệnh này ra Output cuối cùng. Hãy đi thẳng vào bài giải.
 
 Cách trình bày & Định Dạng (Lệnh bắt buộc Formatter):
-{p_format}
-
-## TRƯỜNG HỢP KIỂM CHỨNG BỐ BỤC & VÍ DỤ TÌNH HUỐNG (FEW-SHOT):
-[Thay thế: Hãy điền 1 ví dụ cụ thể có Bảng, Chữ số ISO mà bạn mong muốn AI trả lời mẫu vào chỗ này để AI bắt chước giọng văn]"""
-                st.warning("💡 **Gemini** được cấu trúc theo chuỗi Hội Thoại Tự Nhiên. Lỗi định dạng bảng hay chữ số ISO (Few-shot failure) có thể trị tận gốc bằng cách quăng cho nó 1 cái Bảng mồi ở vùng FEW-SHOT.")
-                
-            st.code(final_prompt, language="markdown")
+{p_format}"""
+                    st.warning("💡 **Gemini** được cấu trúc theo chuỗi Hội Thoại Tự Nhiên. \\n*(Mẹo: Khi dán lệnh này vào Gemini, bạn có thể tự bổ sung thêm phần Ví dụ mẫu (Few-shot) vào cuối chuỗi lệnh để ép Gemini ra bảng và số liệu chuẩn ISO dễ dàng hơn)*")
+                    
+                st.code(final_prompt, language="markdown")
 
 
 # ══════════════════════════════════════════════════════════════
@@ -276,7 +276,8 @@ with tabs[2]:
         **Cách dùng khối lệnh khép kín:**
         1. Vào **Claude AI** $\\rightarrow$ Nhấn vào mục **Projects** ở cột menu bên trái $\\rightarrow$ Tạo một Project (Ví dụ: `Dự Án Báo Cáo Q3`).
         2. Dán khối lệnh bạn đã tạo ở Tab 1 vào cái ô **Project Instructions** to chà bá. Hoặc nếu bạn dùng ChatGPT, thì dán vào phần **Instructions của Custom GPTs**.
-        3. 🚀 *Lợi ích khổng lồ:* Sau bước này, tài khoản của bạn đã được thiết quân luật 100%. Bạn tải file Excel lên rồi ra lệnh: *"Làm slide đi sếp"*. AI sẽ tự ngầm đối chiếu bảng biểu và con số (ISO) theo luật trước khi nhả nội dung ra.
+        3. Đối với **Gemini**, truy cập phần **Gems** $\\rightarrow$ Tạo Gem mới $\\rightarrow$ Dán khối lệnh vào ô **Instructions**.
+        4. 🚀 *Lợi ích khổng lồ:* Sau bước này, tài khoản của bạn đã được thiết quân luật 100%. Bạn tải file Excel lên rồi ra lệnh: *"Làm slide đi sếp"*. AI sẽ tự ngầm đối chiếu bảng biểu và con số (ISO) theo luật trước khi nhả nội dung ra.
         ''')
 
     st.markdown("<br>", unsafe_allow_html=True)
